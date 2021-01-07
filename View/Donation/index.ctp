@@ -150,19 +150,20 @@
     </div>
 </div>
 <script>
-    function numberController(inputId, outputInner, outputValue) {
-        var get = document.getElementById(inputId).value;
-        document.getElementById(outputInner).innerHTML = get;
-        document.getElementById(outputValue).value = get;
-        document.getElementById("output-value-item_name-paypal").value = "Don de <?= $user['pseudo']?> (" + get + " €)"
-    }
-
-    var x = setInterval(function() {
-        if (document.getElementById('input-amount-paypal').value <= 0) {
-            document.getElementById("button-paypal").disabled = true;
-        } else {
-            document.getElementById("button-paypal").disabled = false;
+    if (<?= $isConnected ?>) {
+        function numberController(inputId, outputInner, outputValue) {
+            let get = document.getElementById(inputId).value;
+            document.getElementById(outputInner).innerHTML = get;
+            document.getElementById(outputValue).value = get;
+            document.getElementById("output-value-item_name-paypal").value = "Don de <?= $user['pseudo']?> (" + get + " €)"
         }
-    }, 100);
+        var x = setInterval(function () {
+            if (document.getElementById('input-amount-paypal').value <= 0) {
+                document.getElementById("button-paypal").disabled = true;
+            } else {
+                document.getElementById("button-paypal").disabled = false;
+            }
+        }, 100);
+    }
 </script>
 <br />

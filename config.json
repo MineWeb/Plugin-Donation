@@ -1,29 +1,38 @@
 {
-	"name": "Donation",
-	"author": "LaSkyMania, Sytorex",
-	"version": "1.0.4",
-	"admin_menus": {
-		"GLOBAL__ADMIN_PLUGINS": {
-			"Donation": {
-				"icon": "credit-card",
-				"route": "/admin/donation"
-			}
-		}
-	},
-	"navbar_routes": {
-		"Donation": "/donation"
-	},
-	"useEvents": false,
-	"permissions": {
-		"available": [
-			"DONATION_ADMIN"
-		],
-		"default": {
-			"0": [],
-			"2": []
-		}
-	},
-	"requirements": {
-		"CMS": "^1.11.0"
-	}
+    "name": "Donation",
+    "admin_menus": {
+        "GLOBAL__ADMIN_PLUGINS": {
+            "DONATION__TITLE": {
+                "icon": "credit-card",
+                "menu": {
+                    "ADVENT__CONFIG": {
+                        "icon": "cog",
+                        "route": "/admin/donation/config"
+                    },
+                    "ADVENT__HISTORY": {
+                        "icon": "fab fa-stack-exchange",
+                        "route": "/admin/donation/history"
+                    }
+                }
+            }
+        }
+    },
+    "navbar_routes": {
+        "Donation": "/donation"
+    },
+    "author": "LaSkyMania, Sytorex",
+    "version": "1.0.0",
+    "useEvents": false,
+    "permissions": {
+        "available": [
+            "DONATION_ADMIN"
+        ],
+        "default": {
+            "0": [],
+            "2": []
+        }
+    },
+    "requirements": {
+        "CMS": "^1.14.0"
+    }
 }

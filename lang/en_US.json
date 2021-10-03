@@ -1,31 +1,50 @@
 { 
-  "DONATION_OBJECTIF": "Current objectif : {OBJECTIF}",
-  "DONATION_TOTAL": "Total amount of donations : {TOTAL}",
-  "DONATION_TAB_EDIT_SUCCESS": "The objectif has been changed to {NAME} !",
-  "DONATION_ADMIN_SETTINGS": "Donation settings (Objectif)",
-  "DONATION_EDIT_SETTINGS": "Confirm",
-  "DONATION_EDIT_NULL": "This value cannot be empty !",
-  "DONATION_EDIT_ZERO": "This value cannot be less than or equal to 0 !",
+  "DONATION__TITLE": "Donnations",
+  "DONATION__TITLE_CANCELED": "Donnation canceled",
+  "DONATION__TITLE_RETURN": "Donnation validated",
+  "DONATION__CONFIG": "Configuration",
+  "DONATION__PAYMENT_HISTORY": "Payments history",
 
-  "DONATION_EMAIL_EDIT_SUCCESS": "Donation email (PayPal) has been defined on {EMAIL} !",
-  "DONATION_ADMIN_SETTINGS_EMAIL": "Defined your email to get donations (PayPal)",
-
-  "DONATION_DESCRIPTION_EDIT_SUCCESS": "La description de donation à bien été définie !",
-  "DONATION_ADMIN_SETTINGS_DESCRIPTION": "Define your description to make the user want to donate",
+  "DONATION__ADMIN_SETTINGS": "Donations settings (Goal in €)",
+  "DONATION__ADMIN_SETTINGS_EMAIL": "Define your e-mail to receive donations (PayPal)",
+  "DONATION__ADMIN_SETTINGS_DESCRIPTION": "Define your description to make the user want to donate",
+  "DONATION__ADMIN_SETTINGS_COLOR": "Define main color of donations page",
   
-  "DONATION_ADMIN_RENITIALIZE": "Click on the button below to reset the items (goal, total and description)",
-  "DONATION_RENITIALIZE": "Reset",
-  "DONATION_RESET_SUCCESS": "The elements (objective, total and description) have been reset!",
+  "DONATION__OBJECTIF_NULL": "The goal cannot be empty !",
+  "DONATION_OBJECTIF_ZERO": "The goal cannot be less than or equal to 0 !",
+  "DONATION__EMAIL_NULL": "Email cannot be empty !",
+  "DONATION__DESCRIPTION_NULL": "Description cannot be empty !",
+  "DONATION__CONFIG_SUCCESS": "The configuration has been edited successfully",
 
-  "INDEX_DESCRIPTION": "Thanks to your support, you can thank us for the server that we offer you, in which you have free and unlimited access! You will thus participate in the proper functioning of the server.",
+  "DONATION__CONFIG_MAIN_DESCRIPTION": "Thanks to your support, you can thank us for the server that we offer you, in which you have free and unlimited access! You will thus participate in the proper functioning of the server.",
 
-  "OBJECTIF_DONATION": "Actual objectif : ",
-  "TOTAL_DONATION": "Total amount of donations : ",
-  "POURCENTAGE_DONATION": "Pourcentage : ",
+  "DONATION__INDEX_OBJECTIF": "Current goal: ",
+  "DONATION__INDEX_TOTAL": "Total amount of donations: ",
+  "DONATION__INDEX_POURCENTAGE": "Percentage: ",
 
-  "VALIDE_EUR": "Please indicate the amount of your donation (€)",
+  "DONATION__LAST_DONATIONS": "Last donations",
 
-  "MAKE_DONATION": "Continue",
-  "MAKE_DONATION_NO_CONNECTED": "You have to be connected for make a donation !",
-  "INDEX_DONATION_INVALID": "You cannot make a donation, please contact an Administrator !"
+  "DONATION__VALIDE_EUR": "Please indicate the amount of your donation (€)",
+
+  "DONATION__EDIT_SETTINGS": "Confirm",
+  "DONATION__MAKE": "Continue",
+  "DONATION__MAKE_NO_CONNECTED": "You must be logged in to make a donation !",
+  "DONATION__INVALID": "You cannot make a Donation, please contact an Administrator !",
+  
+  "DONATION__PAYMENT_CONFIRMATION": "Payment confirmation",
+  "DONATION__PAYMENT_BTN": "Click on the button to pay and validate your donation",
+  "DONATION__PAY": "Pay",
+  "DONATION__PAY_WITH_PAYPAL": "€ with Paypal",
+  "DONATION__CLOSE": "Close",
+
+  "DONATION__CANCELED": "Your payment could not be validated because you canceled it ! 😦",
+  "DONATION__BACK": "Back to donations",
+
+  "DONATION__HISTORY_PAYMENT_ID": "Payment ID",
+  "DONATION__HISTORY_PAYMENT_AMOUNT": "Donation amount",
+  "DONATION__HISTORY_USER_PSEUDO": "Donation author",
+  "DONATION__HISTORY_USER_EMAIL": "Donator e-mail",
+  "DONATION__HISTORY_CREATED": "Donation date",
+
+  "DONATION__THANK": "Thank you for your donation ! ❤️"
 }

@@ -1,146 +1,80 @@
 <?php
 
-class DonationController extends AppController {
-    public function beforeFilter()
-    {
-        parent::beforeFilter();
-
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        if (empty($donation)){
-            $this->Donation->saveAll([
-                'objectif' => 100,
-                'total' => 0,
-                'description' => $this->Lang->get('INDEX_DESCRIPTION'),
-            ]);
-        }
-    }
-
-    public function noConnectError() {
-        $this->set('messageTitle', "Vous n'êtes pas connecté");
-        $this->set('messageHTML', '<strong>Vous devez être connecté pour pouvoir faire un don !</strong>');
-        $this->render('Errors/mineweb_custom_message');
-    }
-
+class DonationController extends DonationAppController {
     public function index() {
-        $this->set('title_for_layout', 'Donation');
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        $this->set(compact('donation'));
+        $this->set('title_for_layout', $this->Lang->get('DONATION__TITLE'));
+        
+        $this->loadModel('Donation.DonationConfig');
+        $donation_configs = $this->DonationConfig->find('first')['DonationConfig'];
+        
+        $this->loadModel('Donation.DonationHistory');
+        $donation_history = $this->DonationHistory->find('all', ['limit' => 5, 'order' => 'id DESC']);
+        
+
+        
+        $this->set(compact('donation_configs', 'donation_history')); 
     }
-    
+
     public function canceled() {
-        $this->set('title_for_layout', 'Donation');
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        $this->set(compact('donation'));
+        $this->set('title_for_layout', $this->Lang->get('DONATION__TITLE_CANCELED'));
+        $this->loadModel('Donation.DonationConfig');
+        $donation_configs = $this->DonationConfig->find('first')['DonationConfig'];
+        $this->set(compact('donation_configs'));
     }
-    
+
     public function return() {
-        $this->set('title_for_layout', 'Donation');
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        $this->set(compact('donation'));
+        $this->set('title_for_layout', $this->Lang->get('DONATION__TITLE_RETURN'));
+        $this->loadModel('Donation.DonationConfig');
+        $donation_configs = $this->DonationConfig->find('first')['DonationConfig'];
+        $this->set(compact('donation_configs'));
     }
 
-    public function admin_index() {
-        if($this->isConnected AND $this->User->isAdmin()){
-            $this->loadModel('Donation.Donation');
-            $donation = $this->Donation->find('first');
-            $this->set(compact('donation'));
-
+    public function admin_config() {
+        if ($this->isConnected and $this->User->isAdmin()) {
+            $this->set('title_for_layout', $this->Lang->get('DONATION__TITLE'));
             $this->layout = 'admin';
-        }else {
+            $this->loadModel('Donation.DonationConfig');
+            $donation_configs = $this->DonationConfig->find('first')['DonationConfig'];
+
+            if ($this->request->is('ajax')) {
+                $this->response->type('json');
+                $this->autoRender = null;
+                
+                if (empty($this->request->data['objectif']))
+                    return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION__OBJECTIF_NULL')]);
+                if ($this->request->data['objectif'] <= 0)
+                    return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION_OBJECTIF_ZERO')]); 
+                if (empty($this->request->data['emailDon']))
+                    return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION__EMAIL_NULL')]);
+                
+                $this->DonationConfig->edit(
+                    $this->request->data['objectif'],
+                    $this->request->data['emailDon'],
+                    $this->request->data['descriptionDon'],
+                    $this->request->data['color']
+                );
+                $this->response->body(json_encode(array('statut' => true, 'msg' => $this->Lang->get('DONATION__CONFIG_SUCCESS'))));
+                
+            } else {
+                $this->response->body(json_encode(array('statut' => false, 'msg' => $this->Lang->get('ERROR__BAD_REQUEST'))));
+            }
+
+            $this->set(compact('donation_configs'));
+        } else {
             $this->redirect('/');
         }
     }
 
-    function admin_ajax_edit_goal() {
-        if (!$this->Permissions->can('DONATION_ADMIN'))
-            throw new ForbiddenException();
-        if (!$this->request->is('post'))
-            throw new BadRequestException();
-        if (empty($this->request->data['objectif']))
-            return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION_EDIT_NULL')]);
-            $obj = $this->request->data['objectif'];
-        if ($this->request->data['objectif'] <= 0)
-            return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION_EDIT_ZERO')]);    
-        
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        if (empty($donation))
-            throw new ForbiddenException();
-
-        $this->Donation->updateAll(
-            array('objectif' => $obj),
-            array('id' => $donation['Donation']['id'])
-        );
-
-        $this->sendJSON(['statut' => true, 'msg' => $this->Lang->get('DONATION_TAB_EDIT_SUCCESS', ['{NAME}' => $obj])]);
-    }
-
-    function admin_ajax_edit_email() {
-        if (!$this->Permissions->can('DONATION_ADMIN'))
-            throw new ForbiddenException();
-        if (!$this->request->is('post'))
-            throw new BadRequestException();
-        if (empty($this->request->data['emailDon']))
-            return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION_EDIT_NULL')]);
-        $mail = $this->request->data['emailDon'];
-        
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        if (empty($donation))
-            throw new NotFoundException();
-        
-        $this->Donation->read(null, $donation['Donation']['id']);
-        $this->Donation->set(array('email' =>  $this->request->data['emailDon'],));
-        $this->Donation->save();
-
-        $this->sendJSON(['statut' => true, 'msg' => $this->Lang->get('DONATION_EMAIL_EDIT_SUCCESS', ['{EMAIL}' => $mail])]);
-    }
-    
-    function admin_ajax_edit_description() {
-        if (!$this->Permissions->can('DONATION_ADMIN'))
-            throw new ForbiddenException();
-        if (!$this->request->is('post'))
-            throw new BadRequestException();
-        if (empty($this->request->data['descriptionDon']))
-            return $this->sendJSON(['statut' => false, 'msg' => $this->Lang->get('DONATION_EDIT_NULL')]);
-        $description = $this->request->data['descriptionDon'];
-        
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        if (empty($donation))
-            throw new NotFoundException();
-
-        $this->Donation->read(null, $donation['Donation']['id']);
-        $this->Donation->set(array('description' =>  $this->request->data['descriptionDon'],));
-        $this->Donation->save();
-
-        $this->sendJSON(['statut' => true, 'msg' => $this->Lang->get('DONATION_DESCRIPTION_EDIT_SUCCESS')]);
-    }
-
-    function admin_ajax_reset() {
-        if (!$this->Permissions->can('DONATION_ADMIN'))
-            throw new ForbiddenException();
-        if (!$this->request->is('post'))
-            throw new BadRequestException();
-        
-        $this->loadModel('Donation.Donation');
-        $donation = $this->Donation->find('first');
-        if (empty($donation))
-            throw new NotFoundException();
-
-        $this->loadModel('Donation.Donation');
-        $this->Donation->read(null, $donation['Donation']['id']);
-        $this->Donation->set(array(
-            'objectif' => 100,
-            'total' => 0,
-            'description' => $this->Lang->get('INDEX_DESCRIPTION'),
-        ));
-        $this->Donation->save();
-        $this->sendJSON(['statut' => true, 'msg' => $this->Lang->get('DONATION_RESET_SUCCESS')]);
+    public function admin_history() {
+        if ($this->isConnected and $this->User->isAdmin()) {
+            $this->layout = 'admin';
+            $this->set('title_for_layout', $this->Lang->get('DONATION__PAYMENT_HISTORY'));
+            $this->loadModel('Donation.DonationHistory');
+            $donation_history = $this->DonationHistory->find('all');
+            $this->set(compact('donation_history'));
+        } else {
+            $this->redirect('/');
+        }
     }
 
     // Inspiré du plugin Shop
@@ -149,13 +83,12 @@ class DonationController extends AppController {
         if ($this->request->is('post')) { //On vérifie l'état de la requête
 
             // On assigne les variables
-            $item_name = $this->request->data['item_name'];
-            $item_number = $this->request->data['item_number'];
             $payment_status = strtoupper($this->request->data['payment_status']);
             $payment_amount = $this->request->data['mc_gross'];
+            // Devise
             $payment_currency = $this->request->data['mc_currency'];
+            //Payment_id
             $txn_id = $this->request->data['txn_id'];
-            $receiver_email = $this->request->data['receiver_email'];
             $payer_email = $this->request->data['payer_email'];
             $user_id = $this->request->data['custom'];
 
@@ -214,36 +147,30 @@ class DonationController extends AppController {
 
                 if ($payment_currency == "EUR") { //Le paiement est bien en euros
 
-                    // On vérifie que le paiement pas déjà en base de données
-                    $this->loadModel('Donation.PaypalHistory');
-                    $findPayment = $this->PaypalHistory->find('first', array('conditions' => array('payment_id' => $txn_id)));
+                    // On vérifie que le paiement n'est pas déjà en base de données
+                    $this->loadModel('Donation.DonationHistory');
+                    $this->loadModel('Donation.DonationConfig');
+                    $findPayment = $this->DonationHistory->find('first', array('conditions' => array('payment_id' => $txn_id)));
 
                     if (empty($findPayment)) {
 
                         // On l'ajoute dans l'historique des paiements
-                        $this->PaypalHistory->set(array(
-                            'payment_id' => $txn_id,
-                            'user_id' => $user_id,
-                            'offer_id' => $this->request->data['idOffer'],
-                            'payment_amount' => $payment_amount,
-                            'item' => $clear_name,
-                        ));
-                        $this->PaypalHistory->save();
+                        $this->DonationHistory->add (
+                            $txn_id,
+                            $this->User->getUsernameByID($user_id),
+                            $payer_email,
+                            $payment_amount
+                        );
 
-                        $id = 0;
-                        $current = $this->Donation->find('first', array('conditions' => array('total' => $id)));
-                        $total = $current + $payment_amount;
+                        $current = $this->DonationConfig->find('first')['DonationConfig']['total'];
+                        $new_total = $current + $payment_amount;
                         
                         // On update le total des paiements
-                        $this->Donation->updateAll(
-                            array('total' => $total),
-                            array('id' => $id)
-                        );
-                        $this->Donation->save();
+                        $this->DonationConfig->updateTotal($new_total);
 
                         //Envoie de notification
                         $this->loadModel('Notification');
-                        $this->Notification->setToUser('Merci pour votre donation ! ❤️', $this->User->getKey('pseudo'));
+                        $this->Notification->setToUser($this->Lang->get('DONATION__THANK'), $this->User->getKey('pseudo'));
 
                     } else
                         throw new InternalErrorException('PayPal : Payment already credited');

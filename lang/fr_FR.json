@@ -1,31 +1,50 @@
 { 
-  "DONATION_OBJECTIF": "Objectif actuel : {OBJECTIF}",
-  "DONATION_TOTAL": "Montant total des dons : {TOTAL}",
-  "DONATION_TAB_EDIT_SUCCESS": "L'objectif à bien été changé sur '{NAME}' !",
-  "DONATION_ADMIN_SETTINGS": "Paramètres des donations (Objectif)",
-  "DONATION_EDIT_SETTINGS": "Confirmer",
-  "DONATION_EDIT_NULL": "Cette valeur ne peux pas être vide !",
-  "DONATION_EDIT_ZERO": "Cette valeur ne peux pas être inférieur ou égale à 0 !",
+  "DONATION__TITLE": "Donnations",
+  "DONATION__TITLE_CANCELED": "Donnation annulée",
+  "DONATION__TITLE_RETURN": "Donnation validée",
+  "DONATION__CONFIG": "Configuration",
+  "DONATION__PAYMENT_HISTORY": "Historique des paiements",
 
-  "DONATION_EMAIL_EDIT_SUCCESS": "L'email de donation (PayPal) à bien été définie sur {EMAIL} !",
-  "DONATION_ADMIN_SETTINGS_EMAIL": "Définissez votre email pour recevoir les donations (PayPal)",
+  "DONATION__ADMIN_SETTINGS": "Paramètres des donations (Objectif en €)",
+  "DONATION__ADMIN_SETTINGS_EMAIL": "Définissez votre email pour recevoir les donations (PayPal)",
+  "DONATION__ADMIN_SETTINGS_DESCRIPTION": "Définissez votre description pour donner envie à l'utilisateur de faire des donations",
+  "DONATION__ADMIN_SETTINGS_COLOR": "Définissez la couleur principal de la page des Donations",
   
-  "DONATION_DESCRIPTION_EDIT_SUCCESS": "La description de donation à bien été définie !",
-  "DONATION_ADMIN_SETTINGS_DESCRIPTION": "Définissez votre description pour donner envie à l'utilisateur de faire des donations",
-  
-  "DONATION_ADMIN_RENITIALIZE": "Cliquez sur le bouton ci-dessous pour réinitialiser les éléments (objectif, total et description)",
-  "DONATION_RENITIALIZE": "Rénitialiser",
-  "DONATION_RESET_SUCCESS": "Les éléments (objectif, total et description) on bien été rénitialisez !",
-  
-  "INDEX_DESCRIPTION": "Grâce à votre soutien, vous pouvez nous remerciez pour le serveur que nous vous proposons, dans lequel vous avez accès gratuitement et sans limite ! Vous participerez ainsi au bon fonctionnement du serveur.",
+  "DONATION__OBJECTIF_NULL": "L'objectif ne peux pas être vide !",
+  "DONATION_OBJECTIF_ZERO": "L'objectif ne peux pas être inférieur ou égale à 0 !",
+  "DONATION__EMAIL_NULL": "L'email ne peux pas être vide !",
+  "DONATION__DESCRIPTION_NULL": "La description ne peux pas être vide !",
+  "DONATION__CONFIG_SUCCESS": "La configuration a été édité avec succès",
 
-  "OBJECTIF_DONATION": "Objectif actuel : ",
-  "TOTAL_DONATION": "Montant total des dons : ",
-  "POURCENTAGE_DONATION": "Pourcentage : ",
+  "DONATION__CONFIG_MAIN_DESCRIPTION": "Grâce à votre soutien, vous pouvez nous remerciez pour le serveur que nous vous proposons, dans lequel vous avez accès gratuitement et sans limite ! Vous participerez ainsi au bon fonctionnement du serveur.",
 
-  "VALIDE_EUR": "Veuillez indiquer le montant de votre don (€)",
+  "DONATION__INDEX_OBJECTIF": "Objectif actuel: ",
+  "DONATION__INDEX_TOTAL": "Montant total des dons: ",
+  "DONATION__INDEX_POURCENTAGE": "Pourcentage: ",
 
-  "MAKE_DONATION": "Continuer",
-  "MAKE_DONATION_NO_CONNECTED": "Vous devez être connecter pour faire une donation !",
-  "INDEX_DONATION_INVALID": "Vous ne pouvez pas faire de Donation, veuillez contacter un Administrateur !"  
+  "DONATION__LAST_DONATIONS": "Dernières donations",
+
+  "DONATION__VALIDE_EUR": "Veuillez indiquer le montant de votre don (€)",
+
+  "DONATION__EDIT_SETTINGS": "Confirmer",
+  "DONATION__MAKE": "Continuer",
+  "DONATION__MAKE_NO_CONNECTED": "Vous devez être connecter pour faire une donation !",
+  "DONATION__INVALID": "Vous ne pouvez pas faire de Donation, veuillez contacter un Administrateur !",
+
+  "DONATION__PAYMENT_CONFIRMATION": "Confirmation du paiement",
+  "DONATION__PAYMENT_BTN": "Cliquer sur le bouton pour payer et valider votre don",
+  "DONATION__PAY": "Payer",
+  "DONATION__PAY_WITH_PAYPAL": "€ avec Paypal",
+  "DONATION__CLOSE": "Fermé",
+
+  "DONATION__CANCELED": "Votre paiement n'a pas pu être validé car vous l'avez annulé ! 😦",
+  "DONATION__BACK": "Retour aux Donations",
+
+  "DONATION__HISTORY_PAYMENT_ID": "ID du paiement",
+  "DONATION__HISTORY_PAYMENT_AMOUNT": "Montant de la Donation",
+  "DONATION__HISTORY_USER_PSEUDO": "Auteur de la Donation",
+  "DONATION__HISTORY_USER_EMAIL": "E-mail de l'auteur de la Donation",
+  "DONATION__HISTORY_CREATED": "Date de la Donation",
+
+  "DONATION__THANK": "Merci pour votre donation ! ❤️"
 }

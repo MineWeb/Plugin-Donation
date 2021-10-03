@@ -1,4 +1,8 @@
 <?php
-class DonationAppModel extends AppModel{
-    public $tablePrefix = 'donation__';
+
+class DonationAppModel extends AppModel
+{
+
+	public $tablePrefix = 'donation__';
+
 }

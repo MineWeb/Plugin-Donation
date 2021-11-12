@@ -5,11 +5,11 @@
             "DONATION__TITLE": {
                 "icon": "credit-card",
                 "menu": {
-                    "ADVENT__CONFIG": {
+                    "DONATION__CONFIG": {
                         "icon": "cog",
                         "route": "/admin/donation/config"
                     },
-                    "ADVENT__HISTORY": {
+                    "DONATION__PAYMENT_HISTORY": {
                         "icon": "fab fa-stack-exchange",
                         "route": "/admin/donation/history"
                     }

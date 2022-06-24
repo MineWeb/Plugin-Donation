@@ -9,6 +9,8 @@
   "DONATION__ADMIN_SETTINGS_EMAIL": "Define your e-mail to receive donations (PayPal)",
   "DONATION__ADMIN_SETTINGS_DESCRIPTION": "Define your description to make the user want to donate",
   "DONATION__ADMIN_SETTINGS_COLOR": "Define main color of donations page",
+  "DONATION__ADMIN_SETTINGS_COMMAND": "Define the command send to the server after a donation",
+  "DONATION__ADMIN_SETTINGS_SERVERID": "Define the server to send the command",
   
   "DONATION__OBJECTIF_NULL": "The goal cannot be empty !",
   "DONATION_OBJECTIF_ZERO": "The goal cannot be less than or equal to 0 !",

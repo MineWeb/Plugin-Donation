@@ -34,7 +34,9 @@ class DonationController extends DonationAppController {
             $this->set('title_for_layout', $this->Lang->get('DONATION__TITLE'));
             $this->layout = 'admin';
             $this->loadModel('Donation.DonationConfig');
+            $this->loadModel('Server');
             $donation_configs = $this->DonationConfig->find('first')['DonationConfig'];
+            $servers = $this->Server->find('all');
 
             if ($this->request->is('ajax')) {
                 $this->response->type('json');
@@ -51,7 +53,9 @@ class DonationController extends DonationAppController {
                     $this->request->data['objectif'],
                     $this->request->data['emailDon'],
                     $this->request->data['descriptionDon'],
-                    $this->request->data['color']
+                    $this->request->data['color'],
+                    $this->request->data['command'],
+                    $this->request->data['serverid']
                 );
                 $this->response->body(json_encode(array('statut' => true, 'msg' => $this->Lang->get('DONATION__CONFIG_SUCCESS'))));
                 
@@ -59,7 +63,7 @@ class DonationController extends DonationAppController {
                 $this->response->body(json_encode(array('statut' => false, 'msg' => $this->Lang->get('ERROR__BAD_REQUEST'))));
             }
 
-            $this->set(compact('donation_configs'));
+            $this->set(compact('donation_configs', 'servers'));
         } else {
             $this->redirect('/');
         }
@@ -168,7 +172,14 @@ class DonationController extends DonationAppController {
                         // On update le total des paiements
                         $this->DonationConfig->updateTotal($new_total);
 
-                        //Envoie de notification
+                        // Envoi au serveur
+                        $this->ServerComponent = $this->Components->load('Server');
+                        $serverid = $this->DonationConfig->find('first')['DonationConfig']['server_id'];
+                        if($this->ServerComponent->online($serverid)) {
+                            $call = $this->ServerComponent->send_command($this->DonationConfig->find('first')['DonationConfig']['command'], $serverid);
+                        }
+
+                        // Envoi de notification
                         $this->loadModel('Notification');
                         $this->Notification->setToUser($this->Lang->get('DONATION__THANK'), $this->User->getKey('pseudo'));
 

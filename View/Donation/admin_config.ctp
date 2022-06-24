@@ -31,6 +31,20 @@
                             <input type="hidden" id="putcolor-objectif" name="color" class="form-control" value="<?= $donation_configs['color'] ?>">
                         </div>
 
+                        <div class="form-group">
+                            <label><?= $Lang->get('DONATION__ADMIN_SETTINGS_COMMAND') ?></label>
+                            <input type="text" id="command" name="command" class="form-control" placeholder="say Donation !" value="<?= $donation_configs['command'] ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <label><?= $Lang->get('DONATION__ADMIN_SETTINGS_SERVERID') ?></label>
+                            <select id="serverid" name="serverid" class="form-control" selected="<?= $donation_configs['server_id'] ?>">
+                                <?php foreach($servers as $server){ ?>
+                                    <option value="<?=$server['Server']['id']?>"><?=$server['Server']['name']?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+
                         <button type="submit" class="btn btn-primary"><?= $Lang->get('DONATION__EDIT_SETTINGS') ?></button>
                     </form>
                 </div>

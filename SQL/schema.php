@@ -16,7 +16,9 @@ class DonationAppSchema extends CakeSchema
         'total' => ['type' => 'integer', 'null' => false, 'default' => 0, 'length' => 20, 'unsigned' => false],
         'email' => ['type' => 'string', 'null' => false, 'default' => null, 'length' => 255, 'unsigned' => false],
         'description' => ['type' => 'string', 'null' => true, 'default' => null, 'length' => 255, 'unsigned' => false],
-        'color' => ['type' => 'string', 'null' => true, 'default' => '#3377ff', 'length' => 255, 'unsigned' => false]
+        'color' => ['type' => 'string', 'null' => true, 'default' => '#3377ff', 'length' => 255, 'unsigned' => false],
+        'command' => ['type' => 'string', 'null' => true, 'default' => null, 'length' => 255, 'unsigned' => false],
+        'server_id' => ['type' => 'integer', 'null' => true, 'default' => null, 'length' => 20, 'unsigned' => false]
     ];
 
     public $donation__history = [
